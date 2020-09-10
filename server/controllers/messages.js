@@ -1,9 +1,32 @@
 var models = require('../models');
+
 //models.messages.getAll
 // console.log(models.messages.getAll);
 module.exports = {
   get: function (req, res) {
-    res.writeHead(102, headers);
+    //originally passed in headers as second argument, but was throwing an error as headers was not defined
+    models.messages.getAll((err, data) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(data);
+      }
+    });
   }, // a function which handles a get request for all messages
-  post: function (req, res) {} // a function which handles posting a message to the database
+  post: function (req, res) {
+    // take client request
+    models.messages.create(req.body, (err, data) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(data);
+      }
+    });
+    // send to model create
+    // respond with done
+
+  } // a function which handles posting a message to the database
 };
+
+
+
