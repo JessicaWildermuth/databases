@@ -15,7 +15,10 @@ module.exports = {
   }, // a function which handles a get request for all messages
   post: function (req, res) {
     // take client request
-    models.messages.create(req.body, (err, data) => {
+
+    // var params = [req.body['userName'], req.body['content'], req.body['roomName']];
+    var params = ['Carina says hi!', 'House', 'carina'];
+    models.messages.create(params, (err, data) => {
       if (err) {
         res.json(err);
       } else {

@@ -2,19 +2,14 @@ var db = require('../db');
 
 module.exports = {
   getAll: function (callback) {
-    db.query('SELECT * from messages', (err, data) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, data);
-      }
+    db.query('SELECT messages.userName, messages.content, users.roomName FROM messages LEFT OUTER JOIN users ON messages.user_id = users.id ', (err, data) => {
+      callback(null, data);
     });
   },
   // a function which produces all the messages
-  create: function (message, callback) {
+  create: function (params, callback) {
     // db.query('INSERT INTO messages (message) values ()');
-    var hello = 'Hello Again';
-    db.query('INSERT INTO messages (content) values (?)', message, (err, res) => {
+    db.query('INSERT INTO messages (content, roomName, user_id) VALUES (?, ?, (SELECT id FROM users WHERE userName = ?))', params, (err, res) => {
       if (err) {
         callback(err);
       } else {

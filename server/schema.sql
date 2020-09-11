@@ -10,17 +10,17 @@ USE chat;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
-  userName VARCHAR(20),
+  userName VARCHAR(20) NOT NULL,
   PRIMARY KEY(id)
 );
 
 CREATE TABLE messages (
   id INT NOT NULL AUTO_INCREMENT,
   content VARCHAR(120) NOT NULL,
-  -- user_id INT NOT NULL,
-  -- room_id INT NOT NULL,
-  PRIMARY KEY(id)
-  -- FOREIGN KEY(user_id) references users(id),
+  user_id INT NOT NULL,
+  roomName VARCHAR(12),
+  PRIMARY KEY(id),
+  FOREIGN KEY(user_id) references users(id)
   -- FOREIGN KEY(room_id) references rooms(id)
 );
 
